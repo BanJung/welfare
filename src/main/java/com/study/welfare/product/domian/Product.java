@@ -1,18 +1,21 @@
 package com.study.welfare.product.domian;
 
 import com.study.welfare.category.domain.Category;
-import com.study.welfare.product.core.dto.ProductRequestDto;
-import com.study.welfare.product.core.dto.ProductResponseDto;
+import com.study.welfare.exception.InvalidResourceException;
+import com.study.welfare.product.core.dto.ProductRequestDTO;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
+import lombok.experimental.SuperBuilder;
 
-@Builder
+import java.math.BigDecimal;
+
+@SuperBuilder
 @Getter
 @AllArgsConstructor
 public class Product {
 
     // 상품 정보 관리
+    private final Long productId;
     private final String productName;
     private final String productDescription;
     private final Category productCategory;
@@ -20,36 +23,22 @@ public class Product {
     private ProductStock  productStock;
 
 
-    public static Product fromRequestDto (ProductRequestDto requestDto, Category category){
+    public static Product createFromRequestDTO(ProductRequestDTO requestDTO, Category category){
+        if (requestDTO.getProductPrice().compareTo(BigDecimal.ZERO) <= 0) {
+            throw new InvalidResourceException("product_price", 0L);
+        }
+        if (requestDTO.getProductStock() < 1) {
+            throw new InvalidResourceException("product_stock",0L);
+        }
+
         return Product.builder()
-                .productName(requestDto.getProductName())
-                .productDescription(requestDto.getProductDescription())
+                .productName(requestDTO.getProductName())
+                .productDescription(requestDTO.getProductDescription())
                 .productCategory(category)
-                .productPrice(ProductPrice.applyPrice(requestDto.getProductPrice()))
-                .productStock(ProductStock.applyStock(requestDto.getProductStock()))
+                .productPrice(ProductPrice.applyPrice(requestDTO.getProductPrice()))
+                .productStock(ProductStock.applyStock(requestDTO.getProductStock()))
                 .build();
     }
-
-    public ProductResponseDto toResponseDto (){
-        return ProductResponseDto.builder()
-                .productName(this.getProductName())
-                .productDescription(this.getProductDescription())
-                .categoryName(this.getProductCategory().getCategoryName())
-                .productPrice(this.getProductPrice().getBasePrice())
-                .build();
-    }
-
-
-    public static Product addProduct(String productName,String productDescription, ProductPrice productPrice,ProductStock productStock, Category productCategory){
-        return Product.builder()
-                .productName(productName)
-                .productDescription(productDescription)
-                .productCategory(productCategory)
-                .productPrice(productPrice)
-                .productStock(productStock)
-                .build();
-    }
-
 
 
 

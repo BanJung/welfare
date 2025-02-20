@@ -3,5 +3,23 @@
 - "값 변경이 얼마나 잦은가?"
 - "**ProductStock**을 **가변 객체**(Mutable Object)로 선언하고, **Redis 락**(Redisson) 적용하면 대안이 될까?"
 
+# final을 붙여야 할지 판단하는 기준
 
-## Q2. ProductService 가 CategoryRepository를 의존하는게 나을까 CategoryService를 의존하는게 나을까?
+| 상황                              | final을 사용해야 할까? | 이유                                          |
+|----------------------------------|-------------------------|-----------------------------------------------|
+| 객체 생성 후 변경되지 않는 필드  | ✅ 사용                  | 불변성을 유지하고 객체의 정체성을 보장      |
+| 불변 객체(Immutable Object) 또는 값 객체(Value Object) | ✅ 사용                  | 한 번 설정된 값이 변하면 안 됨               |
+| 멀티스레드 환경에서 공유되는 값   | ✅ 사용                  | 동기화 없이 안전하게 공유 가능               |
+| 상태가 자주 변경되는 필드 (ex: 재고, 가격) | ❌ 사용 금지             | 값 변경이 필요하므로 final을 제거해야 함     |
+| JPA 엔티티(@Entity)의 필드        | ❌ 사용 금지             | JPA가 내부적으로 값을 변경할 수 있어야 함    |
+| Spring 의존성 주입(DI)을 통한 필드 | ✅ 사용                  | @RequiredArgsConstructor를 활용하여 생성자 주입 가능 |
+
+
+
+## Q2. Validation은 어디서 해야할까?
+- Domain 레이어 : 생성 시 자기 검증
+- Infrastructure 레이어(RepositoryImpl) : DB 관련 예외 반환
+- Controller 레이어(DTO) : 요청 데이터 검증
+
+- Maven lombok 오류 : 버전 명시 후 해
+- 결

@@ -12,6 +12,8 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "product_type")
 @Table(name="product")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -26,7 +28,7 @@ public class ProductJpaEntity {
 
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "category_id")
     private CategoryJpaEntity category;
 
@@ -37,6 +39,7 @@ public class ProductJpaEntity {
     private int stock=0;
 
     public ProductJpaEntity(String name, String description, CategoryJpaEntity category, BigDecimal price, int stock) {
+        this.id=getId();
         this.name = name;
         this.description = description;
         this.category = category;
@@ -49,18 +52,19 @@ public class ProductJpaEntity {
                 product.getProductName(),
                 product.getProductDescription(),
                 CategoryJpaEntity.from(product.getProductCategory()),
-                product.getProductPrice().basePrice(),
+                product.getProductPrice().getBasePrice(),
                 product.getProductStock().getStock()
         );
     }
 
     public Product toModel(){
         return Product.builder()
-                .productName(this.name)
-                .productDescription(this.description)
-                .productPrice(ProductPrice.applyPrice(this.price))
-                .productStock(ProductStock.applyStock(this.stock))
-                .productCategory((this.category).toModel())
+                .productId(getId())
+                .productName(getName())
+                .productDescription(getDescription())
+                .productCategory(getCategory().toModel())
+                .productPrice(ProductPrice.applyPrice(getPrice()))
+                .productStock(ProductStock.applyStock(getStock()))
                 .build();
     }
 }

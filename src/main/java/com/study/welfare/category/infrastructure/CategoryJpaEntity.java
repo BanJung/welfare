@@ -14,20 +14,26 @@ public class CategoryJpaEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private int id;
 
     @Column(nullable = false)
     private String name;
 
+    public CategoryJpaEntity(String categoryName) {
+        this.id=getId();
+        this.name=categoryName;
+    }
+
     public static CategoryJpaEntity from(Category category){
-        CategoryJpaEntity entity=new CategoryJpaEntity();
-        entity.name=category.categoryName();
-        return entity;
+        return new CategoryJpaEntity(
+                category.getCategoryName()
+        );
     }
 
     public Category toModel(){
         return Category.builder()
-                .categoryName(this.name)
+                .categoryId(getId())
+                .categoryName(getName())
                 .build();
     }
 }

@@ -21,14 +21,25 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponse> handleException(Exception ex) {
+    @ExceptionHandler(InvalidResourceException.class)
+    public ResponseEntity<ErrorResponse> handleIllegalArgumentException(InvalidResourceException ex) {
         ErrorResponse errorResponse = ErrorResponse.createMessage(
-                HttpStatus.INTERNAL_SERVER_ERROR.value(),
-                "An unexpected error occurred",
-                null,
-                null
+                HttpStatus.BAD_REQUEST.value(),
+                ex.getMessage(),
+                ex.getResourceName(),
+                ex.getResourceId()
         );
-        return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
+
+//    @ExceptionHandler(Exception.class)
+//    public ResponseEntity<ErrorResponse> handleException(Exception ex) {
+//        ErrorResponse errorResponse = ErrorResponse.createMessage(
+//                HttpStatus.INTERNAL_SERVER_ERROR.value(),
+//                "An unexpected error occurred",
+//                null,
+//                null
+//        );
+//        return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+//    }
 }

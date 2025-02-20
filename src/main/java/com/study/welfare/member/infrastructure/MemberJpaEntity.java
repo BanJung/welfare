@@ -21,6 +21,8 @@ public class MemberJpaEntity {
 
     private String name;
 
+    private String nickName;
+
     @Column(unique = true)
     private String email;
 
@@ -34,6 +36,7 @@ public class MemberJpaEntity {
         MemberJpaEntity entity =new MemberJpaEntity();
         entity.id=member.getMemberId();
         entity.name= member.getMemberName();
+        entity.nickName= member.getNickName();
         entity.email= member.getEmail();
         entity.password= member.getPassword();
         entity.roles=member.getRoles();
@@ -42,11 +45,12 @@ public class MemberJpaEntity {
 
     public Member toModel(){
         return Member.builder()
-                .memberId(this.id)
-                .memberName(this.name)
-                .email(this.email)
-                .password(this.password)
-                .roles(this.roles)
+                .memberId(getId())
+                .memberName(getName())
+                .nickName(getNickName())
+                .email(getEmail())
+                .password(getPassword())
+                .roles(getRoles())
                 .build();
     }
 

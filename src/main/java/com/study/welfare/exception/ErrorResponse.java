@@ -3,6 +3,8 @@ package com.study.welfare.exception;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.Optional;
+
 @Data
 @Builder
 public class ErrorResponse {

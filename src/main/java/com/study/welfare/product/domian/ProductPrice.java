@@ -10,7 +10,8 @@ import java.math.BigDecimal;
 @Getter
 @RequiredArgsConstructor
 @Builder
-public record ProductPrice(BigDecimal basePrice) {
+public class ProductPrice {
+    private final BigDecimal basePrice;
     public static ProductPrice applyPrice(BigDecimal basePrice) {
         return ProductPrice.builder()
                 .basePrice(basePrice)

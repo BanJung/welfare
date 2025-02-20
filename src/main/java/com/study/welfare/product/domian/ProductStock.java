@@ -2,12 +2,8 @@ package com.study.welfare.product.domian;
 
 import lombok.Builder;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-
-import java.math.BigDecimal;
 
 @Getter
-@RequiredArgsConstructor
 @Builder
 public class ProductStock {
     private int stock;

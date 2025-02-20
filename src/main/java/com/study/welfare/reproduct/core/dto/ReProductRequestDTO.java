@@ -16,8 +16,8 @@ public class ReProductRequestDTO extends ProductRequestDTO {
     @NotNull(message = "상품 입력은 필수입니다.")
     private Long originalProductId;
 
-//    @NotNull(message = "상품 입력은 필수입니다.")
-//    private String sellerName;
+    @NotNull(message = "판매자명 입력은 필수입니다.")
+    private String sellerName;
 
     @NotNull(message = "주소는 필수입니다.")
     private String location;

@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public class Category {
-    private final int categoryId;
+    private final Integer categoryId;
     private final String categoryName;
     public static Category createCategory(String categoryName) {
         return Category.builder()

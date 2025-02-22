@@ -12,7 +12,7 @@ public class ProductResponseDTO {
 
     private String productName;
     private String productDescription;
-    private String categoryName;
+    private Integer productCategoryId;
     private BigDecimal productPrice;
 
 
@@ -20,7 +20,7 @@ public class ProductResponseDTO {
         return ProductResponseDTO.builder()
                 .productName(product.getProductName())
                 .productDescription(product.getProductDescription())
-                .categoryName(product.getProductCategory().getCategoryName())
+                .productCategoryId(product.getProductCategoryId())
                 .productPrice(product.getProductPrice().getBasePrice())
                 .build();
     }

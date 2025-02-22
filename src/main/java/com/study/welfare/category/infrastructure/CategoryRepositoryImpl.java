@@ -19,9 +19,15 @@ public class CategoryRepositoryImpl implements CategoryRepository {
         categoryJpaRepository.save(CategoryJpaEntity.from(category));
     }
     @Override
-    public Category findById(int id){
+    public Category findById(Integer id){
         return categoryJpaRepository.findById(id)
                 .orElseThrow(()-> new NotFoundException("category",id))
                 .toModel();
+    }
+
+    @Override
+    public CategoryJpaEntity findEntityById(Integer id){
+        return categoryJpaRepository.findById(id)
+                .orElseThrow(()-> new NotFoundException("category",id));
     }
 }

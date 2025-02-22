@@ -2,8 +2,6 @@ package com.study.welfare.exception;
 
 import lombok.Getter;
 
-import java.util.Optional;
-
 @Getter
 public class InvalidResourceException extends IllegalArgumentException {
     private String resourceName;

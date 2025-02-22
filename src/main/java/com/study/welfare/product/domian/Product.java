@@ -18,12 +18,12 @@ public class Product {
     private final Long productId;
     private final String productName;
     private final String productDescription;
-    private final Category productCategory;
+    private final Integer productCategoryId;
     private ProductPrice productPrice;
     private ProductStock  productStock;
 
 
-    public static Product createFromRequestDTO(ProductRequestDTO requestDTO, Category category){
+    public static Product createFromRequestDTO(ProductRequestDTO requestDTO){
         if (requestDTO.getProductPrice().compareTo(BigDecimal.ZERO) <= 0) {
             throw new InvalidResourceException("product_price", 0L);
         }
@@ -34,7 +34,7 @@ public class Product {
         return Product.builder()
                 .productName(requestDTO.getProductName())
                 .productDescription(requestDTO.getProductDescription())
-                .productCategory(category)
+                .productCategoryId(requestDTO.getCategoryId())
                 .productPrice(ProductPrice.applyPrice(requestDTO.getProductPrice()))
                 .productStock(ProductStock.applyStock(requestDTO.getProductStock()))
                 .build();

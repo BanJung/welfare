@@ -17,7 +17,7 @@ public class ReProductResponseDTO extends ProductResponseDTO {
         return ReProductResponseDTO.builder()
                 .productName(reProduct.getProductName())
                 .productDescription(reProduct.getProductDescription())
-                .categoryName(reProduct.getProductCategory().getCategoryName())
+                .productCategoryId(reProduct.getProductCategoryId())
                 .productPrice(reProduct.getProductPrice().getBasePrice())
                 .sellerName(reProduct.getSellerName())
                 .location(reProduct.getLocation())

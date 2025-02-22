@@ -17,6 +17,7 @@ public class Member {
     private String nickName;
     private final String email;
     private String password;
+    //private Long points;
     private Set<Role> roles;
 
 

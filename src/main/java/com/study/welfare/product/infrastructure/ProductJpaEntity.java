@@ -1,5 +1,6 @@
 package com.study.welfare.product.infrastructure;
 
+import com.study.welfare.category.domain.Category;
 import com.study.welfare.category.infrastructure.CategoryJpaEntity;
 import com.study.welfare.product.domian.Product;
 import com.study.welfare.product.domian.ProductPrice;
@@ -14,6 +15,7 @@ import java.math.BigDecimal;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "product_type")
+@DiscriminatorValue("PRODUCT")
 @Table(name="product")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -28,7 +30,7 @@ public class ProductJpaEntity {
 
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private CategoryJpaEntity category;
 
@@ -47,11 +49,22 @@ public class ProductJpaEntity {
         this.stock = stock;
     }
 
-    public static ProductJpaEntity from(Product product) {
+    public static ProductJpaEntity from(Product product, CategoryJpaEntity categoryJpaEntity) {
         return new ProductJpaEntity(
                 product.getProductName(),
                 product.getProductDescription(),
-                CategoryJpaEntity.from(product.getProductCategory()),
+                //JPA Entity가 들어가야 하는 건 맞는데, 새로 생성해서 들어가는 게 아님(from을 사용하면 안됨)
+                categoryJpaEntity,
+                product.getProductPrice().getBasePrice(),
+                product.getProductStock().getStock()
+        );
+    }
+
+    public static ProductJpaEntity from(Product product, Category category) {
+        return new ProductJpaEntity(
+                product.getProductName(),
+                product.getProductDescription(),
+                CategoryJpaEntity.from(category),
                 product.getProductPrice().getBasePrice(),
                 product.getProductStock().getStock()
         );
@@ -62,7 +75,7 @@ public class ProductJpaEntity {
                 .productId(getId())
                 .productName(getName())
                 .productDescription(getDescription())
-                .productCategory(getCategory().toModel())
+                .productCategoryId(getCategory().toModel().getCategoryId())
                 .productPrice(ProductPrice.applyPrice(getPrice()))
                 .productStock(ProductStock.applyStock(getStock()))
                 .build();

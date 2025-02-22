@@ -1,6 +1,8 @@
 package com.study.welfare.reproduct.infrastructure;
 
+import com.study.welfare.category.domain.Category;
 import com.study.welfare.category.infrastructure.CategoryJpaEntity;
+import com.study.welfare.product.domian.Product;
 import com.study.welfare.product.domian.ProductPrice;
 import com.study.welfare.product.domian.ProductStock;
 import com.study.welfare.product.infrastructure.ProductJpaEntity;
@@ -19,7 +21,7 @@ import java.math.BigDecimal;
 @DiscriminatorValue("USED")
 public class ReProductJpaEntity  extends ProductJpaEntity  {
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "original_product_id", nullable = false)
     private ProductJpaEntity originalProduct; // 원본 상품
 
@@ -41,14 +43,14 @@ public class ReProductJpaEntity  extends ProductJpaEntity  {
         this.isSold=isSold;
     }
 
-    public static ReProductJpaEntity from(ReProduct reProduct) {
+    public static ReProductJpaEntity from(ReProduct reProduct, CategoryJpaEntity categoryJpaEntity, ProductJpaEntity originalProduct) {
         return new ReProductJpaEntity(
                 reProduct.getProductName(),
                 reProduct.getProductDescription(),
-                CategoryJpaEntity.from(reProduct.getProductCategory()),
+                categoryJpaEntity,
                 reProduct.getProductPrice().getBasePrice(),
                 reProduct.getProductStock().getStock(),
-                ProductJpaEntity.from(reProduct.getOriginalProduct()),
+                originalProduct,
                 reProduct.getSellerName(),
                 reProduct.getLocation(),
                 reProduct.isSold()
@@ -59,10 +61,10 @@ public class ReProductJpaEntity  extends ProductJpaEntity  {
         return ReProduct.builder()
                 .productName(getName())
                 .productDescription(getDescription())
-                .productCategory(getCategory().toModel())
+                .productCategoryId(getCategory().getId())
                 .productPrice(ProductPrice.applyPrice(getPrice()))
                 .productStock(ProductStock.applyStock(getStock()))
-                .originalProduct(getOriginalProduct().toModel())
+                .originalProductId(getOriginalProduct().getId())
                 .sellerName(getSellerName())
                 .location(getLocation())
                 .isSold(isSold())

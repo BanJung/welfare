@@ -1,4 +1,4 @@
-package com.study.welfare.groupproduct.core.dto;
+package com.study.welfare.groupfundingproduct.core.dto;
 
 import com.study.welfare.product.core.dto.ProductRequestDTO;
 import jakarta.validation.constraints.NotNull;
@@ -7,16 +7,15 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class GroupProductRequestDTO extends ProductRequestDTO {
+public class GroupFundingProductRequestDTO extends ProductRequestDTO {
 
     @Positive(message = "목표 수량은 0보다 커야 합니다.")
-    private int targetQuantity;
+    private int targetParticipants;
 
     @NotNull(message = "시작일 입력은 필수입니다.")
     private LocalDateTime startDate;

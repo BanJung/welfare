@@ -1,6 +1,5 @@
 package com.study.welfare.product.infrastructure;
 
-import com.study.welfare.category.domain.Category;
 import com.study.welfare.category.infrastructure.CategoryJpaEntity;
 import com.study.welfare.category.infrastructure.CategoryJpaRepository;
 import com.study.welfare.exception.NotFoundException;

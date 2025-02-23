@@ -1,8 +1,6 @@
 package com.study.welfare.reproduct.infrastructure;
 
-import com.study.welfare.category.domain.Category;
 import com.study.welfare.category.infrastructure.CategoryJpaEntity;
-import com.study.welfare.product.domian.Product;
 import com.study.welfare.product.domian.ProductPrice;
 import com.study.welfare.product.domian.ProductStock;
 import com.study.welfare.product.infrastructure.ProductJpaEntity;
@@ -59,6 +57,7 @@ public class ReProductJpaEntity  extends ProductJpaEntity  {
 
     public ReProduct toModel() {
         return ReProduct.builder()
+                .productId(getId())
                 .productName(getName())
                 .productDescription(getDescription())
                 .productCategoryId(getCategory().getId())

@@ -60,15 +60,6 @@ public class ProductJpaEntity {
         );
     }
 
-    public static ProductJpaEntity from(Product product, Category category) {
-        return new ProductJpaEntity(
-                product.getProductName(),
-                product.getProductDescription(),
-                CategoryJpaEntity.from(category),
-                product.getProductPrice().getBasePrice(),
-                product.getProductStock().getStock()
-        );
-    }
 
     public Product toModel(){
         return Product.builder()

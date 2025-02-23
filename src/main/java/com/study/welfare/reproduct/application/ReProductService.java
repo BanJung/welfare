@@ -1,11 +1,5 @@
 package com.study.welfare.reproduct.application;
 
-import com.study.welfare.category.application.repository.CategoryRepository;
-import com.study.welfare.category.domain.Category;
-import com.study.welfare.category.infrastructure.CategoryJpaEntity;
-import com.study.welfare.product.application.repository.ProductRepository;
-import com.study.welfare.product.domian.Product;
-import com.study.welfare.product.infrastructure.ProductJpaEntity;
 import com.study.welfare.reproduct.application.repository.ReProductRepository;
 import com.study.welfare.reproduct.core.dto.ReProductRequestDTO;
 import com.study.welfare.reproduct.core.dto.ReProductResponseDTO;

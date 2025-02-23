@@ -25,4 +25,20 @@ public class GroupFundingProductRepositoryImpl implements GroupFundingProductRep
 
         groupFundingProductJpaRepository.save(GroupFundingProductJpaEntity.from(groupFundingProduct, categoryJpaEntity));
     }
+
+    @Override
+    public GroupFundingProduct findById(Long id) {
+        return groupFundingProductJpaRepository.findById(id)
+                .orElseThrow(()-> new NotFoundException("group-funding-product",id))
+                .toModel();
+    }
+
+    @Override
+    public void updateParticipation(GroupFundingProduct groupFundingProduct) {
+        GroupFundingProductJpaEntity existingEntity = groupFundingProductJpaRepository.findById(groupFundingProduct.getProductId())
+                .orElseThrow(() -> new NotFoundException("group-funding-product", groupFundingProduct.getProductId()));
+        existingEntity.updateParticipationFromModel(groupFundingProduct);
+    }
+
+
 }

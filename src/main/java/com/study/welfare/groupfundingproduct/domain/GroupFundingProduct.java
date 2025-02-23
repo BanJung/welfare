@@ -1,6 +1,5 @@
 package com.study.welfare.groupfundingproduct.domain;
 
-import com.study.welfare.category.domain.Category;
 import com.study.welfare.groupfundingproduct.core.dto.GroupFundingProductRequestDTO;
 import com.study.welfare.product.domian.Product;
 import com.study.welfare.product.domian.ProductPrice;

@@ -5,6 +5,8 @@ import com.study.welfare.category.domain.Category;
 import com.study.welfare.exception.NotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -23,6 +25,12 @@ public class CategoryRepositoryImpl implements CategoryRepository {
         return categoryJpaRepository.findById(id)
                 .orElseThrow(()-> new NotFoundException("category",id))
                 .toModel();
+    }
+
+    @Override
+    public Page<Category> findAllSortedByName(Pageable pageable) {
+        return categoryJpaRepository.findAllSortedByName(pageable)
+                .map(CategoryJpaEntity::toModel);
     }
 
     @Override

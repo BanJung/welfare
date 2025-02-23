@@ -1,7 +1,5 @@
 package com.study.welfare.product.application.repository;
 
-import com.study.welfare.category.domain.Category;
-import com.study.welfare.category.infrastructure.CategoryJpaEntity;
 import com.study.welfare.product.domian.Product;
 import com.study.welfare.product.infrastructure.ProductJpaEntity;
 

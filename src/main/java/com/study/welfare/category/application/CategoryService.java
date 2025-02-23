@@ -6,6 +6,8 @@ import com.study.welfare.category.dto.CategoryRequestDTO;
 import com.study.welfare.category.dto.CategoryResponseDTO;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,6 +25,10 @@ public class CategoryService {
 
     public CategoryResponseDTO findCategoryById(int id) {
         return CategoryResponseDTO.from(categoryRepository.findById(id));
+    }
+
+    public Page<CategoryResponseDTO> getCategories(Pageable pageable) {
+        return categoryRepository.findAllSortedByName(pageable).map(CategoryResponseDTO::from);
     }
 
 }

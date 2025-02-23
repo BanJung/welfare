@@ -61,6 +61,7 @@ public class GroupFundingProductJpaEntity extends ProductJpaEntity  {
 
     public GroupFundingProduct toModel() {
         return GroupFundingProduct.builder()
+                .productId(getId())
                 .productName(getName())
                 .productDescription(getDescription())
                 .productCategoryId(getCategory().getId())
@@ -70,5 +71,9 @@ public class GroupFundingProductJpaEntity extends ProductJpaEntity  {
                 .startDate(startDate)
                 .endDate(endDate)
                 .build();
+    }
+
+    public void updateParticipationFromModel(GroupFundingProduct groupFundingProduct) {
+        this.currentParticipants = groupFundingProduct.getParticipantCount().getCurrentParticipants();
     }
 }

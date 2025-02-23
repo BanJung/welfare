@@ -1,8 +1,5 @@
 package com.study.welfare.product.application;
 
-import com.study.welfare.category.application.repository.CategoryRepository;
-import com.study.welfare.category.domain.Category;
-import com.study.welfare.category.infrastructure.CategoryJpaEntity;
 import com.study.welfare.product.application.repository.ProductRepository;
 import com.study.welfare.product.core.dto.ProductRequestDTO;
 import com.study.welfare.product.core.dto.ProductResponseDTO;

@@ -1,6 +1,5 @@
 package com.study.welfare.product.domian;
 
-import com.study.welfare.category.domain.Category;
 import com.study.welfare.exception.InvalidResourceException;
 import com.study.welfare.product.core.dto.ProductRequestDTO;
 import lombok.AllArgsConstructor;

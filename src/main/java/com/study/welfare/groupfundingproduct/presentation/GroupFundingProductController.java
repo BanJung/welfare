@@ -6,10 +6,7 @@ import com.study.welfare.groupfundingproduct.core.dto.GroupFundingProductRespons
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/group-funding-products")
@@ -23,6 +20,16 @@ public class GroupFundingProductController {
     public ResponseEntity<GroupFundingProductResponseDTO> createGroupFundingProduct(@RequestBody GroupFundingProductRequestDTO requestDto) {
         GroupFundingProductResponseDTO responseDto = groupFundingProductService.saveGroupFundingProduct(requestDto);
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/{productId}/participate")
+    public void participate(@PathVariable Long productId) {
+        groupFundingProductService.participate(productId);
+    }
+
+    @PostMapping("/{productId}/cancel")
+    public void cancelParticipation(@PathVariable Long productId) {
+        groupFundingProductService.cancelParticipation(productId);
     }
 }
 

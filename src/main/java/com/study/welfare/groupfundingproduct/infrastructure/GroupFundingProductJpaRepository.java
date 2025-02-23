@@ -1,6 +1,6 @@
 package com.study.welfare.groupfundingproduct.infrastructure;
 
-import com.study.welfare.product.infrastructure.ProductJpaRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface GroupFundingProductJpaRepository extends ProductJpaRepository {
+public interface GroupFundingProductJpaRepository extends JpaRepository<GroupFundingProductJpaEntity,Long> {
 }

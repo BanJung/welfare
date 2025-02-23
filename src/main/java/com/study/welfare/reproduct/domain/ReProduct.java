@@ -1,6 +1,5 @@
 package com.study.welfare.reproduct.domain;
 
-import com.study.welfare.category.domain.Category;
 import com.study.welfare.product.domian.Product;
 import com.study.welfare.product.domian.ProductPrice;
 import com.study.welfare.product.domian.ProductStock;
